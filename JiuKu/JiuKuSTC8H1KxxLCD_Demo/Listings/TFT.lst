@@ -1,0 +1,225 @@
+C51 COMPILER V9.60.0.0   TFT                                                               10/05/2023 18:57:16 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE TFT
+OBJECT MODULE PLACED IN .\Objects\TFT.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE TFT.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\TFT.l
+                    -st) TABS(2) OBJECT(.\Objects\TFT.obj)
+
+line level    source
+
+   1          #include<STC8H.H>
+   2          #include"TFT.h"
+   3          
+   4          
+   5          
+   6          
+   7          void SPI_Init();         //spi初始化
+   8          void DatToSPI(uint out);     //spi写一个字节
+   9          void ST7735_Init();     //TFT初始化
+  10          void ComTo7735(uint byte);
+  11          void DatTo7735(uint byte);
+  12          void delay_ms(uint xms);
+  13          
+  14          //========================================================================
+  15          // 描述: SPI初始化.
+  16          // 参数: speed:通信速率（0~3）.//删了
+  17          // 返回: none.
+  18          //========================================================================
+  19          void SPI_Init()
+  20          {
+  21   1      /*
+  22   1          SPCTL |=  (1 << 7);         //忽略 SS 引脚功能，使用 MSTR 确定器件是主机还是从机
+  23   1          SPCTL |=  (1 << 6);         //使能 SPI 功能
+  24   1          SPCTL &= ~(1 << 5);         //先发送/接收数据的高位（ MSB）
+  25   1          SPCTL |=  (1 << 4);         //设置主机模式
+  26   1          SPCTL &= ~(1 << 3);         //设置CPOL  
+  27   1          SPCTL |=  (HARDSPI_CPOL << 3);
+  28   1      
+  29   1          SPCTL &= ~(1 << 2);         //设置CPHA
+  30   1          SPCTL |=  (HARDSPI_CPHA << 2);
+  31   1      
+  32   1          SPCTL = (SPCTL & ~3) | 3;           //SPI 时钟频率选择, 0: 4T, 1: 8T,  2: 16T,  3: 32T
+  33   1        
+  34   1      */
+  35   1          SPCTL=0xd0;
+  36   1        
+  37   1        
+  38   1          //P_SW1 = (P_SW1 & ~(3<<2));// | (1<<2); //IO口切换. 0: P1.2/P5.4 P1.3 P1.4 P1.5,      1: P2.2 P2.3 P2
+             -.4 P2.5,     2: P5.4 P4.0 P4.1 P4.3,     3: P3.5 P3.4 P3.3 P3.2
+  39   1      
+  40   1          SCL = 0;        //将时钟设置为低初始状态
+  41   1          SDA = 1;
+  42   1          
+  43   1          SPSTAT = 0xc0;   //清0 SPIF和WCOL标志
+  44   1      }
+  45          
+  46          //========================================================================
+  47          // 描述: SPI写一个字节.
+  48          // 参数: none.
+  49          // 返回: none.
+  50          //========================================================================
+  51          void DatToSPI(uint out)
+  52          {
+  53   1          SPDAT = out;
+C51 COMPILER V9.60.0.0   TFT                                                               10/05/2023 18:57:16 PAGE 2   
+
+  54   1          while((SPSTAT & 0x80) == 0) ;
+  55   1          SPSTAT = 0xc0;   //清0 SPIF和WCOL标志
+  56   1      }
+  57          
+  58          //========================================================================
+  59          // 描述: TFT写命令.
+  60          // 参数: none.
+  61          // 返回: none.
+  62          //========================================================================
+  63          void ComTo7735(uint byte)
+  64          {
+  65   1        RS=0;
+  66   1        CS=0;
+  67   1        DatToSPI(byte);
+  68   1        CS=1;
+  69   1      }
+  70          
+  71          //========================================================================
+  72          // 描述: TFT写数据.
+  73          // 参数: none.
+  74          // 返回: none.
+  75          //========================================================================
+  76          void DatTo7735(uint byte)
+  77          {
+  78   1        RS=1;
+  79   1        CS=0;
+  80   1        DatToSPI(byte);
+  81   1        CS=1;
+  82   1      }
+  83          
+  84          //========================================================================
+  85          // 描述: TFT初始化.
+  86          // 参数: none.
+  87          // 返回: none.
+  88          //========================================================================
+  89          void ST7735_Init()
+  90          {
+  91   1        SPI_Init();
+  92   1        //----ST7735S reset sequence----------------//
+  93   1        RES=1;
+  94   1        delay_ms(5);      
+  95   1        RES=0;
+  96   1        delay_ms(5);     
+  97   1        RES=1;
+  98   1        delay_ms(20);    
+  99   1      
+ 100   1      
+ 101   1      //--------------------------------End ST7735R Reset Sequence --------------------------------------//
+ 102   1      
+ 103   1      //--------------------------------End ST7735S Reset Sequence --------------------------------------//
+ 104   1      ComTo7735(0x11); //Sleep out
+ 105   1      delay_ms(120);              //Delay 120ms
+ 106   1      //------------------------------------ST7735S Frame Rate-----------------------------------------//
+ 107   1      ComTo7735(0xB1);
+ 108   1      DatTo7735(0x05);
+ 109   1      DatTo7735(0x3C);
+ 110   1      DatTo7735(0x3C);
+ 111   1      ComTo7735(0xB2);
+ 112   1      DatTo7735(0x05);
+ 113   1      DatTo7735(0x3C);
+ 114   1      DatTo7735(0x3C);
+ 115   1      ComTo7735(0xB3);
+C51 COMPILER V9.60.0.0   TFT                                                               10/05/2023 18:57:16 PAGE 3   
+
+ 116   1      DatTo7735(0x05);
+ 117   1      DatTo7735(0x3C);
+ 118   1      DatTo7735(0x3C);
+ 119   1      DatTo7735(0x05);
+ 120   1      DatTo7735(0x3C);
+ 121   1      DatTo7735(0x3C);
+ 122   1      //------------------------------------End ST7735S Frame Rate---------------------------------//
+ 123   1      ComTo7735(0xB4); //Dot inversion
+ 124   1      DatTo7735(0x03);
+ 125   1      //------------------------------------ST7735S Power Sequence---------------------------------//
+ 126   1      ComTo7735(0xC0);
+ 127   1      DatTo7735(0x28);
+ 128   1      DatTo7735(0x08);
+ 129   1      DatTo7735(0x04);
+ 130   1      ComTo7735(0xC1);
+ 131   1      DatTo7735(0XC0);
+ 132   1      ComTo7735(0xC2);
+ 133   1      DatTo7735(0x0D);
+ 134   1      DatTo7735(0x00);
+ 135   1      ComTo7735(0xC3);
+ 136   1      DatTo7735(0x8D);
+ 137   1      DatTo7735(0x2A);
+ 138   1      ComTo7735(0xC4);
+ 139   1      DatTo7735(0x8D);
+ 140   1      DatTo7735(0xEE);
+ 141   1      //---------------------------------End ST7735S Power Sequence-------------------------------------//
+ 142   1      ComTo7735(0xC5); //VCOM
+ 143   1      DatTo7735(0x1A);
+ 144   1      ComTo7735(0x36); //MX, MY, RGB mode
+ 145   1      DatTo7735(0xC0);
+ 146   1      //------------------------------------ST7735S Gamma Sequence---------------------------------//
+ 147   1      ComTo7735(0xE0);
+ 148   1      DatTo7735(0x04);
+ 149   1      DatTo7735(0x22);
+ 150   1      DatTo7735(0x07);
+ 151   1      DatTo7735(0x0A);
+ 152   1      DatTo7735(0x2E);
+ 153   1      DatTo7735(0x30);
+ 154   1      DatTo7735(0x25);
+ 155   1      DatTo7735(0x2A);
+ 156   1      DatTo7735(0x28);
+ 157   1      DatTo7735(0x26);
+ 158   1      DatTo7735(0x2E);
+ 159   1      DatTo7735(0x3A);
+ 160   1      DatTo7735(0x00);
+ 161   1      DatTo7735(0x01);
+ 162   1      DatTo7735(0x03);
+ 163   1      DatTo7735(0x13);
+ 164   1      ComTo7735(0xE1);
+ 165   1      DatTo7735(0x04);
+ 166   1      DatTo7735(0x16);
+ 167   1      DatTo7735(0x06);
+ 168   1      DatTo7735(0x0D);
+ 169   1      DatTo7735(0x2D);
+ 170   1      DatTo7735(0x26);
+ 171   1      DatTo7735(0x23);
+ 172   1      DatTo7735(0x27);
+ 173   1      DatTo7735(0x27);
+ 174   1      DatTo7735(0x25);
+ 175   1      DatTo7735(0x2D);
+ 176   1      DatTo7735(0x3B);
+ 177   1      DatTo7735(0x00);
+C51 COMPILER V9.60.0.0   TFT                                                               10/05/2023 18:57:16 PAGE 4   
+
+ 178   1      DatTo7735(0x01);
+ 179   1      DatTo7735(0x04);
+ 180   1      DatTo7735(0x13);
+ 181   1      //------------------------------------End ST7735S Gamma Sequence-----------------------------//
+ 182   1      ComTo7735(0x3A); //65k mode
+ 183   1      DatTo7735(0x05);
+ 184   1      ComTo7735(0x29); //Display on
+ 185   1        
+ 186   1      
+ 187   1      }
+ 188          
+ 189          void delay_ms(uint xms)
+ 190          {
+ 191   1        uint i,j;
+ 192   1        for(i=xms;i>0;i--)
+ 193   1           for(j=1600;j>0;j--);
+ 194   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    433    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

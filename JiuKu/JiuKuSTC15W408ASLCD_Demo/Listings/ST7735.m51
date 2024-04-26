@@ -1,0 +1,384 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    12/15/2023  09:40:01  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+E:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\ST7735.obj, .\Objects\TFT.obj TO .\Objects\ST7735 PRINT (.\
+>> Listings\ST7735.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\ST7735.obj (ST7735)
+  .\Objects\TFT.obj (TFT)
+
+
+LINK MAP OF MODULE:  .\Objects\ST7735 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         _DATA_GROUP_
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     015BH     UNIT         ?PR?ST7735_INIT?TFT
+            CODE    015EH     0049H     UNIT         ?PR?DISP_WINDOWS?ST7735
+            CODE    01A7H     0046H     UNIT         ?PR?MAIN?ST7735
+            CODE    01EDH     0030H     UNIT         ?PR?_DISPLAY_COLOR?ST7735
+            CODE    021DH     001EH     UNIT         ?PR?_DELAY_MS?TFT
+            CODE    023BH     0017H     UNIT         ?PR?_DATTO7735?TFT
+            CODE    0252H     000CH     UNIT         ?C_C51STARTUP
+            CODE    025EH     000CH     UNIT         ?PR?_DATTOSPI?TFT
+            CODE    026AH     000BH     UNIT         ?PR?SPI_INIT?TFT
+            CODE    0275H     000AH     UNIT         ?PR?_COMTO7735?TFT
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\ST7735 (?C_STARTUP)
+
+
+SEGMENT                             DATA_GROUP 
+  +--> CALLED SEGMENT             START    LENGTH
+-------------------------------------------------
+?C_C51STARTUP                     -----    -----
+  +--> ?PR?MAIN?ST7735
+
+?PR?MAIN?ST7735                   -----    -----
+  +--> ?PR?ST7735_INIT?TFT
+  +--> ?PR?_DISPLAY_COLOR?ST7735
+  +--> ?PR?DISP_WINDOWS?ST7735
+  +--> ?PR?_DELAY_MS?TFT
+
+?PR?ST7735_INIT?TFT               -----    -----
+  +--> ?PR?SPI_INIT?TFT
+  +--> ?PR?_DELAY_MS?TFT
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 2
+
+
+  +--> ?PR?_COMTO7735?TFT
+  +--> ?PR?_DATTO7735?TFT
+
+?PR?_COMTO7735?TFT                -----    -----
+  +--> ?PR?_DATTOSPI?TFT
+
+?PR?_DATTO7735?TFT                -----    -----
+  +--> ?PR?_COMTO7735?TFT
+  +--> ?PR?_DATTOSPI?TFT
+
+?PR?_DISPLAY_COLOR?ST7735         0008H    0006H
+  +--> ?PR?DISP_WINDOWS?ST7735
+  +--> ?PR?_DATTO7735?TFT
+
+?PR?DISP_WINDOWS?ST7735           -----    -----
+  +--> ?PR?_COMTO7735?TFT
+  +--> ?PR?_DATTO7735?TFT
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\ST7735 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0252H         SEGMENT       ?C_C51STARTUP
+  I:000EH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0255H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0252H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0252H         LINE#         133
+  C:0254H         LINE#         134
+  C:0255H         LINE#         135
+  C:0256H         LINE#         136
+  C:0258H         LINE#         185
+  C:025BH         LINE#         196
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 3
+
+
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        ST7735
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:01A7H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:015EH         PUBLIC        DISP_WINDOWS
+  C:01EDH         PUBLIC        _DISPLAY_COLOR
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          DISP_WINDOWS
+  C:015EH         LINE#         6
+  C:015EH         LINE#         7
+  C:015EH         LINE#         8
+  C:0165H         LINE#         9
+  C:016BH         LINE#         10
+  C:0172H         LINE#         11
+  C:0178H         LINE#         12
+  C:017FH         LINE#         14
+  C:0186H         LINE#         15
+  C:018CH         LINE#         16
+  C:0193H         LINE#         17
+  C:0199H         LINE#         18
+  C:01A0H         LINE#         20
+  -------         ENDPROC       DISP_WINDOWS
+  -------         PROC          _DISPLAY_COLOR
+  D:0008H         SYMBOL        color
+  -------         DO            
+  D:000AH         SYMBOL        i
+  D:000CH         SYMBOL        j
+  -------         ENDDO         
+  C:01EDH         LINE#         25
+  C:01F1H         LINE#         26
+  C:01F1H         LINE#         28
+  C:01F4H         LINE#         29
+  C:01FAH         LINE#         30
+  C:01FAH         LINE#         31
+  C:0202H         LINE#         32
+  C:0209H         LINE#         33
+  C:021CH         LINE#         35
+  -------         ENDPROC       _DISPLAY_COLOR
+  -------         PROC          MAIN
+  C:01A7H         LINE#         42
+  C:01A7H         LINE#         43
+  C:01A7H         LINE#         55
+  C:01AAH         LINE#         56
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 4
+
+
+  C:01B0H         LINE#         58
+  C:01B3H         LINE#         59
+  C:01BAH         LINE#         61
+  C:01BAH         LINE#         62
+  C:01BAH         LINE#         63
+  C:01C1H         LINE#         64
+  C:01C8H         LINE#         65
+  C:01CFH         LINE#         66
+  C:01D6H         LINE#         67
+  C:01DDH         LINE#         68
+  C:01E4H         LINE#         69
+  C:01EBH         LINE#         70
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        ST7735
+
+  -------         MODULE        TFT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00CEH         PUBLIC        SPCTL
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  B:00A0H.0       PUBLIC        P20
+  B:0090H.2       PUBLIC        P12
+  D:0098H         PUBLIC        SCON
+  B:0090H.3       PUBLIC        P13
+  D:0088H         PUBLIC        TCON
+  C:0248H         PUBLIC        _DatTo7735
+  B:0090H.5       PUBLIC        P15
+  B:00C8H.4       PUBLIC        P54
+  C:0275H         PUBLIC        _ComTo7735
+  C:025EH         PUBLIC        _DatToSPI
+  C:021DH         PUBLIC        _delay_ms
+  D:00CDH         PUBLIC        SPSTAT
+  C:026AH         PUBLIC        SPI_Init
+  C:0003H         PUBLIC        ST7735_Init
+  D:00D0H         PUBLIC        PSW
+  D:00CFH         PUBLIC        SPDAT
+  -------         PROC          SPI_INIT
+  C:026AH         LINE#         19
+  C:026AH         LINE#         20
+  C:026AH         LINE#         35
+  C:026DH         LINE#         40
+  C:026FH         LINE#         41
+  C:0271H         LINE#         43
+  C:0274H         LINE#         44
+  -------         ENDPROC       SPI_INIT
+  -------         PROC          _DATTOSPI
+  D:0006H         SYMBOL        out
+  C:025EH         LINE#         51
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 5
+
+
+  C:025EH         LINE#         52
+  C:025EH         LINE#         53
+  C:0260H         LINE#         54
+  C:0266H         LINE#         55
+  C:0269H         LINE#         56
+  -------         ENDPROC       _DATTOSPI
+  -------         PROC          _COMTO7735
+  D:0006H         SYMBOL        byte
+  C:0275H         LINE#         63
+  C:0275H         LINE#         64
+  C:0275H         LINE#         65
+  C:0277H         LINE#         66
+  C:0279H         LINE#         67
+  C:027CH         LINE#         68
+  C:027EH         LINE#         69
+  -------         ENDPROC       _COMTO7735
+  C:023BH         SYMBOL        L?0018
+  C:023EH         SYMBOL        L?0019
+  -------         PROC          L?0017
+  -------         ENDPROC       L?0017
+  C:023BH         SYMBOL        L?0018
+  C:023EH         SYMBOL        L?0019
+  -------         PROC          _DATTO7735
+  D:0006H         SYMBOL        byte
+  C:0248H         LINE#         76
+  C:0248H         LINE#         77
+  C:0248H         LINE#         78
+  C:024AH         LINE#         79
+  C:024CH         LINE#         80
+  C:024FH         LINE#         81
+  C:0251H         LINE#         82
+  -------         ENDPROC       _DATTO7735
+  -------         PROC          ST7735_INIT
+  C:0003H         LINE#         89
+  C:0003H         LINE#         90
+  C:0003H         LINE#         91
+  C:0006H         LINE#         93
+  C:0008H         LINE#         94
+  C:000FH         LINE#         95
+  C:0011H         LINE#         96
+  C:0018H         LINE#         97
+  C:001AH         LINE#         98
+  C:0021H         LINE#         104
+  C:0028H         LINE#         105
+  C:002DH         LINE#         107
+  C:0031H         LINE#         108
+  C:0031H         LINE#         109
+  C:0031H         LINE#         110
+  C:0034H         LINE#         111
+  C:0036H         LINE#         112
+  C:0036H         LINE#         113
+  C:0036H         LINE#         114
+  C:0039H         LINE#         115
+  C:003BH         LINE#         116
+  C:003BH         LINE#         117
+  C:003BH         LINE#         118
+  C:003EH         LINE#         119
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 6
+
+
+  C:003EH         LINE#         120
+  C:003EH         LINE#         121
+  C:0041H         LINE#         123
+  C:0046H         LINE#         124
+  C:004BH         LINE#         126
+  C:0050H         LINE#         127
+  C:0055H         LINE#         128
+  C:005AH         LINE#         129
+  C:005FH         LINE#         130
+  C:0064H         LINE#         131
+  C:0068H         LINE#         132
+  C:006DH         LINE#         133
+  C:0072H         LINE#         134
+  C:0077H         LINE#         135
+  C:007CH         LINE#         136
+  C:0081H         LINE#         137
+  C:0086H         LINE#         138
+  C:008BH         LINE#         139
+  C:0090H         LINE#         140
+  C:0095H         LINE#         142
+  C:009AH         LINE#         143
+  C:009FH         LINE#         144
+  C:00A4H         LINE#         145
+  C:00A9H         LINE#         147
+  C:00AEH         LINE#         148
+  C:00B3H         LINE#         149
+  C:00B8H         LINE#         150
+  C:00BDH         LINE#         151
+  C:00C2H         LINE#         152
+  C:00C7H         LINE#         153
+  C:00CCH         LINE#         154
+  C:00D1H         LINE#         155
+  C:00D6H         LINE#         156
+  C:00DBH         LINE#         157
+  C:00E0H         LINE#         158
+  C:00E5H         LINE#         159
+  C:00EAH         LINE#         160
+  C:00EFH         LINE#         161
+  C:00F3H         LINE#         162
+  C:00F8H         LINE#         163
+  C:00FDH         LINE#         164
+  C:0102H         LINE#         165
+  C:0107H         LINE#         166
+  C:010CH         LINE#         167
+  C:0111H         LINE#         168
+  C:0116H         LINE#         169
+  C:011BH         LINE#         170
+  C:0120H         LINE#         171
+  C:0125H         LINE#         172
+  C:012AH         LINE#         173
+  C:012DH         LINE#         174
+  C:0132H         LINE#         175
+  C:0137H         LINE#         176
+  C:013CH         LINE#         177
+  C:0141H         LINE#         178
+  C:0145H         LINE#         179
+  C:014AH         LINE#         180
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  12/15/2023  09:40:01  PAGE 7
+
+
+  C:014FH         LINE#         182
+  C:0154H         LINE#         183
+  C:0159H         LINE#         184
+  -------         ENDPROC       ST7735_INIT
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        xms
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:021DH         LINE#         189
+  C:021DH         LINE#         190
+  C:021DH         LINE#         192
+  C:0226H         LINE#         193
+  C:023AH         LINE#         194
+  -------         ENDPROC       _DELAY_MS
+  -------         ENDMOD        TFT
+
+Program Size: data=15.0 xdata=0 code=639
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

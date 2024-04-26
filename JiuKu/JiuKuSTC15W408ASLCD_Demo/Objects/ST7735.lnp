@@ -1,0 +1,5 @@
+".\Objects\STARTUP.obj",
+".\Objects\ST7735.obj",
+".\Objects\TFT.obj" 
+TO ".\Objects\ST7735" 
+PRINT(".\Listings\ST7735.m51") RAMSIZE(256) 

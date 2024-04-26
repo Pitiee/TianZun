@@ -1,0 +1,99 @@
+C51 COMPILER V9.60.0.0   ST7735                                                            10/05/2023 18:57:16 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ST7735
+OBJECT MODULE PLACED IN .\Objects\ST7735.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE ST7735.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ST
+                    -7735.lst) TABS(2) OBJECT(.\Objects\ST7735.obj)
+
+line level    source
+
+   1          #include<STC8H.H>
+   2          #include"TFT.h"
+   3          #define uint unsigned int
+   4          #define uchar unsigned char
+   5            
+   6            void DISP_WINDOWS(void)
+   7          {
+   8   1        ComTo7735(0x2a);
+   9   1        DatTo7735(0x00); 
+  10   1        DatTo7735(26); 
+  11   1        DatTo7735(0x00);  
+  12   1        DatTo7735(105); 
+  13   1      
+  14   1        ComTo7735(0x2b);
+  15   1        DatTo7735(0x00);
+  16   1        DatTo7735(1);
+  17   1        DatTo7735(0x00);  
+  18   1        DatTo7735(160); 
+  19   1        
+  20   1        ComTo7735(0x2c);
+  21   1        
+  22   1      }
+  23          
+  24          
+  25            void DISPLAY_COLOR(uint color)
+  26          {
+  27   1              uint i,j;
+  28   1              DISP_WINDOWS();
+  29   1              for (i=160*80;i>0;i--)
+  30   1              {
+  31   2                  DatTo7735(color>>8);
+  32   2                  DatTo7735(color);
+  33   2              }
+  34   1      
+  35   1      }
+*** WARNING C280 IN LINE 27 OF ST7735.c: 'j': unreferenced local variable
+  36          
+  37          
+  38          
+  39          
+  40          
+  41          
+  42          void main()
+  43          {
+  44   1        P1M0|=  (1 << 2);
+  45   1        P1M0|=  (1 << 3);
+  46   1        P1M0|=  (1 << 4);
+  47   1        P1M0|=  (1 << 5); 
+  48   1        P1M1=0x00;
+  49   1      
+  50   1        
+  51   1        P3M0|=  (1 << 7);
+  52   1        P3M1=0x00;
+  53   1        
+C51 COMPILER V9.60.0.0   ST7735                                                            10/05/2023 18:57:16 PAGE 2   
+
+  54   1        
+  55   1        ST7735_Init();
+  56   1        DISPLAY_COLOR(0x00);
+  57   1      
+  58   1        DISP_WINDOWS();
+  59   1        DISPLAY_COLOR(0xf00F);
+  60   1      
+  61   1        while(1)
+  62   1        {
+  63   2          DISPLAY_COLOR(0x00ff);
+  64   2          delay_ms(10);
+  65   2          DISPLAY_COLOR(0x0f0a);
+  66   2          delay_ms(10);
+  67   2          DISPLAY_COLOR(0xfffa);
+  68   2          delay_ms(10);
+  69   2          DISPLAY_COLOR(0x0ff0);
+  70   2        }
+  71   1      }
+  72            
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    211    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
